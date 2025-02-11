@@ -22,6 +22,7 @@ import { registerSchema } from "@/helper/validation/user.schema";
 import { useRegisterUser } from "@/api/user-api";
 import { showMessage } from "@/components/alert-toast/toast";
 import { showError } from "@/helper/errorToast";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
   const registerUser = useRegisterUser();
@@ -34,11 +35,12 @@ export default function RegisterForm() {
       repassword: "",
     },
   });
+  const router = useRouter();
 
   async function onSubmit(values) {
     try {
-      console.log(values);
       const { password, username, name } = values;
+
       const response = await registerUser.mutateAsync({
         password,
         username,
@@ -46,7 +48,10 @@ export default function RegisterForm() {
       });
 
       showMessage("Register Success", "success");
+      router.push("/");
     } catch (error) {
+      console.log(error);
+
       showError(error);
     }
   }

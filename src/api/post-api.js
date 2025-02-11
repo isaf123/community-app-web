@@ -71,3 +71,15 @@ export const usePostList = (tags) => {
   });
   return response;
 };
+
+export const useTagList = () => {
+  const response = useQuery({
+    queryFn: async () => {
+      return await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}post/tags-list`
+      );
+    },
+    queryKey: ["tags"],
+  });
+  return response.data;
+};

@@ -22,3 +22,11 @@ export const formatDate = (date) => {
 
   return formattedDate;
 };
+
+export const convertDate = (date) => {
+  return new Date(date).toLocaleString("en-GB", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+};

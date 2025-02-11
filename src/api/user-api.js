@@ -1,5 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
+import Cookies from "js-cookie";
 import axios from "axios";
+import { Cookie } from "next/font/google";
 
 export const useLoginUser = () => {
   return useMutation({
@@ -8,6 +10,7 @@ export const useLoginUser = () => {
         `${process.env.NEXT_PUBLIC_API_URL}user/login`,
         { username, password }
       );
+
       return response.data;
     },
   });

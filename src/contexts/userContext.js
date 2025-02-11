@@ -1,12 +1,12 @@
 import { getUserData } from "@/api/user-api";
 import { createContext, useEffect, useState, useContext } from "react";
-
+import Cookies from "js-cookie";
 export const UserContext = createContext();
 
 export function UserContextProvider({ children }) {
   const [token, setToken] = useState();
   useEffect(() => {
-    setToken(localStorage.getItem("token-user"));
+    setToken(Cookies.get("token-user"));
   }, []);
   const user = getUserData(token);
 

@@ -1,40 +1,31 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useLoginUser } from "@/api/user-api";
+import { useLoginAdmin } from "@/api/admin-api";
 import { useState } from "react";
 import { showMessage } from "@/components/alert-toast/toast";
 import { showError } from "@/helper/errorToast";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-export default function LoginForm() {
-  const loginUser = useLoginUser();
+export default function LoginAdminForm() {
+  const loginAdmin = useLoginAdmin();
   const [data, setData] = useState({ username: "", password: "" });
   const router = useRouter();
-
   const login = async () => {
     try {
       const { username, password } = data;
       if (!username || !password) {
-        throw "please fill password and username";
+        throw "please fill email and username";
       }
-      const response = await loginUser.mutateAsync({
-        username,
+      const response = await loginAdmin.mutateAsync({
+        adminname: username,
         password,
       });
-
       Cookies.set("token-user", response.token);
-
       showMessage("login success", "success");
-      router.push("/");
+      router.push("/admin");
     } catch (error) {
       showError(error);
     }
@@ -44,10 +35,7 @@ export default function LoginForm() {
       <div className={"flex flex-col gap-6 min-h-screen"}>
         <Card className="my-auto">
           <CardHeader>
-            <CardTitle className="text-2xl">Login</CardTitle>
-            <CardDescription>
-              Enter your username below to login to your account
-            </CardDescription>
+            <CardTitle className="text-2xl">Admin-Login</CardTitle>
           </CardHeader>
           <CardContent>
             <form>

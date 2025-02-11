@@ -16,7 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { useCreatePost } from "@/api/post-api";
 import { showMessage } from "@/components/alert-toast/toast";
 import { showError } from "@/helper/errorToast";
-
+import Cookies from "js-cookie";
 export default function CreatePost(props) {
   const [post, setPost] = useState({ title: "", content: "", tags: [] });
   const inputRef = useRef(null);
@@ -35,7 +35,7 @@ export default function CreatePost(props) {
       const { title, content, tags } = post;
 
       if (!title | !content | !tags.length) throw "please fill all field";
-      const token = localStorage.getItem("token-user");
+      const token = Cookies.get("token-user");
       const response = await createPost.mutateAsync({
         title,
         content,

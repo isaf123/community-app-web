@@ -2,6 +2,7 @@
 import { useUser } from "@/contexts/userContext";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 export default function Topbar() {
   const user = useUser();
@@ -16,7 +17,7 @@ export default function Topbar() {
           <h3> {user.username}</h3>
           <Button
             onClick={() => {
-              localStorage.removeItem("token-user");
+              Cookies.remove("token-user");
               window.location.reload();
             }}
           >
